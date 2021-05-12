@@ -1,0 +1,40 @@
+{#
+  This is an example home page template. It inherits and extends a layout template
+  that lives in the top-level views/ folder for convenience
+#}
+
+{% extends "layout.html" %}
+
+{% block main %}
+
+  <div class="main-content">
+    <ul class="c-navigation__items">
+      {% for tab in home._children %}
+        <li class="c-navigation__item
+          {% if currentPage and (apos.pages.isAncestorOf(tab, currentPage) or tab._id == currentPage._id) %}
+            c-navigation__item--active
+          {% endif %}
+        "><a class="o-body c-navigation__link" href="{{ tab._url }}">
+          {{ tab.title }}{% if options.arrows and tab._children.length > 0 %}{{ svgs.navArrow() }}{% endif %}
+          </a>
+          {% if tab._children.length > 0 and options.arrows %}
+            <ul class="o-body c-navigation__item__subnav" aria-label="subnav">
+            {% for child in tab._children %}
+              <li><a href="{{ child._url }}">{{ child.title }}</a></li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+          </li>
+      {% endfor %}
+    </ul>
+    <h3>WELCOME TO MY FIRST APOSTROPHE APP!
+      {% if not data.user %}
+        <a class="login-link" href="{{ apos.prefix }}/login">Login</a>
+      {% endif %}
+    </h3>
+    {{ apos.singleton(data.page, 'content', 
+    'apostrophe-rich-text', {
+      toolbar: [ 'Bold', 'Italic', 'Underline']
+    })}}
+  </div>
+{% endblock %}

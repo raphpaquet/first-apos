@@ -1,0 +1,18 @@
+{% extends 'apostrophe-templates:outerLayout.html' %}
+{% extends "layout.html" %}
+
+{% block main %}
+
+<h1>OUR TALKS</h1>
+<h3>Inspirational talks from our outdoors specialists</h3>
+<div class="grid">
+  {% for talk in data.pieces %}
+  <div class="talk-card">
+    {% set img = apos.images.first(talk.image) %}
+    <img src="{{ apos.attachments.url(img) }}" class="thumbnail">
+    <a href="{{ talk._url }}">{{talk.title}}</a>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
+ 

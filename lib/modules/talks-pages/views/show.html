@@ -1,0 +1,21 @@
+{% extends 'apostrophe-templates:outerLayout.html' %}
+{% extends "layout.html" %}
+
+{% block main %}
+<h2>
+  <a href="{{ data.home._url }}">{{ data.home.title }}</a>
+</h2>
+<div class="talk-details">
+  {% set img = apos.images.first(data.piece.image) %}
+  <div class="col-2">
+    <img src="{{ apos.attachments.url(img) }}" class="large"/>
+  </div>
+  <div class="col-1">
+    <h1>{{ data.piece.title }}</h1><br />
+    <p>{{ data.piece.time }}</p><br />
+  
+  {{ apos.area(data.piece, 'content') }}
+  </div>
+</div>
+
+{% endblock %}
